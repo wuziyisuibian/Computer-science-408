@@ -16,6 +16,7 @@ public:
     bool Insert(int i, ElemType e);
     bool Ddelete(int i, ElemType &e);
     int LocateElem(ElemType e);
+    void Print(); 
 
 private:
     ElemType *m_data;
@@ -28,7 +29,7 @@ SqList::SqList(int init_size)
 , m_length(0)
 {
 //	m_data=(ElemType*)malloc(sizeof(ElemType)*m_max_size);
-    m_data = new ElemType(m_max_size);
+    m_data = new ElemType(init_size);
 }
 
 SqList::~SqList()
@@ -50,9 +51,10 @@ bool SqList::Insert(int i, ElemType e)
     if(i<1 || i>m_length+1){
         return false;
     }
-    if(m_length=m_max_size){
+    if(m_length==m_max_size){
         return false;
     }
+    
     for(int j=m_length; j>=i; j--){
         m_data[j]=m_data[j-1];
     }
@@ -81,17 +83,29 @@ int SqList::LocateElem(ElemType e)
 {
     for(int i=0; i<m_length; i++){
         if(m_data[i]==e){
-            return i;
+            return i+1;
         }
     }
-    return -1;
+    return 0;
 }
 
+void SqList::Print()
+{
+	for(int i=0; i<m_length; i++){
+		cout << m_data[i] << " ";
+	}
+	cout << endl;
+}
 
 
 int main(void)
 {
-    cout << "hello world!";
+    cout << "hello world!" << endl;
     SqList s(50);
+    for(int i=1; i<=50; i++){
+    	s.Insert(i,i);
+	}
+	
+	s.Print();
     return 0;
 }
